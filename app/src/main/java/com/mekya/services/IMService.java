@@ -94,16 +94,16 @@ public class IMService extends Service implements IAppManager, IUpdateData {
     @Override
     public void onCreate() 
     {   	
-         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
-         // Display a notification about us starting.  We put an icon in the status bar.
-         //   showNotification();
-    	 conManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        // Display a notification about us starting.  We put an icon in the status bar.
+        //   showNotification();
+        conManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 
-    	 // Timer is used to take the friendList info every UPDATE_TIME_PERIOD;
-		 timer = new Timer();
-		
-		 Thread thread = new Thread()
+        // Timer is used to take the friendList info every UPDATE_TIME_PERIOD;
+        timer = new Timer();
+
+        Thread thread = new Thread()
 		{
 			@Override
 			public void run() {			
@@ -112,19 +112,17 @@ public class IMService extends Service implements IAppManager, IUpdateData {
 				Random random = new Random();
 				int tryCount = 0;
 				while (socketOperator.startListening(10000 + random.nextInt(20000))  == 0 )
-				{		
+				{
 					tryCount++; 
 					if (tryCount > 10)
 					{
 						// if it can't listen a port after trying 10 times, give up...
 						break;
 					}
-					
 				}
 			}
 		};		
 		thread.start();
-    
     }
 
 /*
